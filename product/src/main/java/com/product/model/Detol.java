@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 public class Detol {
 	@Id
 	private int batno;
+	private String type; 
 	private String manarea;
 	private int cost;
 	private String shipping;
@@ -16,6 +17,12 @@ public class Detol {
 	private int dcharge;
 	public String getShipping() {
 		return shipping;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public void setShipping(String shipping) {
 		this.shipping = shipping;
