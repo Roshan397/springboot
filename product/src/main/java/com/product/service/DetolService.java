@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.product.dao.DetolRepository;
 import com.product.model.Detol;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class DetolService {
 	@Autowired
@@ -41,7 +43,7 @@ public class DetolService {
 	{
 		return c.findById(id).get();
 	}
-	public boolean deleteStudent(int id) {
+	public boolean deleteCust(int id) {
 		boolean result=false;
 		c.deleteById(id);
 		Optional<Detol> s= c.findById(id);
@@ -52,39 +54,45 @@ public class DetolService {
 		return result;
 	}
 	
-	public List<Detol> sortStudent(String field) {
+	public List<Detol> sortCust(String field) {
 		return c.findAll(Sort.by(Direction.DESC,field));
 //		return c.findAll(Sort.by(field));
 		
 	}
 
-	public List<Detol> pagingStudents(int offset, int pageSize) {
+	public List<Detol> pagingCustomers(int offset, int pageSize) {
 		Pageable paging=PageRequest.of(offset,pageSize);
-		Page<Detol> studData=c.findAll(paging);
-		List<Detol> studList=studData.getContent();
-		return studList;
+		Page<Detol> custData=c.findAll(paging);
+		List<Detol> custList=custData.getContent();
+		return custList;
 	}
+
 	
-//	public Page<Detol> pagingStudents(int offset, int pageSize) {
-//		Pageable paging=PageRequest.of(offset,pageSize);
-//		Page<Detol> studData=c.findAll(paging);
-//		return studData;
-//	}
-	
-	public List<Detol> pagingAndSortingStudents(int offset, int pageSize,String field) {
+	public List<Detol> pagingAndSortingCustomers(int offset, int pageSize,String field) {
 		Pageable paging=PageRequest.of(offset,pageSize).withSort(Sort.by(field));
-		Page<Detol> studData=c.findAll(paging);
-		List<Detol> studList=studData.getContent();
-		return studList;
+		Page<Detol> custData=c.findAll(paging);
+		List<Detol> custList=custData.getContent();
+		return custList;
 	}
 	
-	public List<Detol> fetchStudentsByNamePrefix(String prefix){
+	public List<Detol> fetchCustomersByAreaPrefix(String prefix){
 		return c.findByManareaStartingWith(prefix);
 	}
-	public List<Detol> getStudentsByDepartment(String area,String type)
+	public List<Detol> getCustomersByArea(String area,String type)
 	  {
-		  return c.getStudentsByManarea(area, type);
+		  return c.getCustomersByManarea(area, type);
 	  }
+
+	//DML
+	@Transactional
+	public int deleteCustomerByname(String name) {
+		return c.deleteCustomersByCustname(name);
+	}
+	
+	@Transactional
+	public int updateCustomerByname(String area,String name) {
+		return c.updateCustomersByCustname(area, name);
+	}
 }
 
 

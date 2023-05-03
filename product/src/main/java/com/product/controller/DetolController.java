@@ -47,43 +47,57 @@ public class DetolController {
 	{
 		return f.find(id);
 	}
-	@DeleteMapping("/deleteStudent/{id}")
-	public boolean deleteStudent(@PathVariable int id)
+	@DeleteMapping("/deleteCustomer/{id}")
+	public boolean deleteCustomer(@PathVariable int id)
 	{
-		boolean result=f.deleteStudent(id);
+		boolean result=f.deleteCust(id);
 		return result;
 	}
 
 	
-	 @GetMapping("/sortStudent/{field}")
-	 public List<Detol> sortStudent(@PathVariable("field") String field)
+	 @GetMapping("/sortCustomer/{field}")
+	 public List<Detol> sortCustomer(@PathVariable("field") String field)
 	 {
-		 return f.sortStudent(field);
+		 return f.sortCust(field);
 	 }
 	 
-	 @GetMapping("/pagingStudents/{offset}/{pageSize}")
-	 public List<Detol> pagingStudents(@PathVariable int offset,@PathVariable int pageSize){
-		 return f.pagingStudents(offset,pageSize);
+	 @GetMapping("/pagingCustomers/{offset}/{pageSize}")
+	 public List<Detol> pagingCustomers(@PathVariable int offset,@PathVariable int pageSize){
+		 return f.pagingCustomers(offset,pageSize);
+	 }
+
+	 
+	 @GetMapping("/pagingCustomers/{offset}/{pageSize}/{field}")
+	 public List<Detol> pagingAndSortingCustomers(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
+		 return f.pagingAndSortingCustomers(offset,pageSize,field);
 	 }
 	 
-//	 @GetMapping("pagingStudents/{offset}/{pageSize}")
-//	 public Page<Detol> pagingStudents(@PathVariable int offset,@PathVariable int pageSize){
-//		 return f.pagingStudents(offset,pageSize);
-//	 }
-	 
-	 @GetMapping("/pagingStudents/{offset}/{pageSize}/{field}")
-	 public List<Detol> pagingAndSortingStudents(@PathVariable int offset,@PathVariable int pageSize,@PathVariable String field){
-		 return f.pagingAndSortingStudents(offset,pageSize,field);
-	 }
-	 
-	 @GetMapping("/fetchStudentsByNamePrefix")
+	 @GetMapping("/fetchCustomersByAreaPrefix")
 	 public List<Detol> fetchStudentsByAreaPrefix(@RequestParam String prefix){
-		return f.fetchStudentsByNamePrefix(prefix);
+		return f.fetchCustomersByAreaPrefix(prefix);
 	}
-	 @GetMapping("/fetchStudentsByDepartment/{area}/{type}")
-	 public List<Detol> fetchStudentsByArea(@PathVariable String area,@PathVariable String type)
+	 @GetMapping("/fetchCustomersByArea/{area}/{type}")
+	 public List<Detol> fetchCustomersByArea(@PathVariable String area,@PathVariable String type)
 	 {
-	 	return f.getStudentsByDepartment(area, type);
+	 	return f.getCustomersByArea(area, type);
 	 }
+	 @DeleteMapping("/deleteCustomerByName/{name}")
+	 public String deleteCustomerByName(@PathVariable String name) {
+		 int result=f.deleteCustomerByname(name);
+		 if(result>0)
+			 return "Customer record deleted";
+		 else
+			 return "Problem occured while deleting";
+	 }
+	 
+	 @PutMapping("/updateCustomerByName/{area}/{name}")
+	 public String updateCustomerByName(@PathVariable String area,@PathVariable String name) {
+		 int result=f.updateCustomerByname(area,name);
+		 if(result>0)
+			 return "Customer record updated";
+		 else
+			 return "Problem occured while updating";
+	 }
+
 
 }

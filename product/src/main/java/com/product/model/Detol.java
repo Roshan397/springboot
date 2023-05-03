@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 public class Detol {
 	@Id
 	private int batno;
+	private String custname;
 	private String type; 
 	private String manarea;
 	private int cost;
@@ -68,6 +69,12 @@ public class Detol {
 	}
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	public String getCustname() {
+		return custname;
+	}
+	public void setCustname(String custname) {
+		this.custname = custname;
 	}
 
 }
