@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.product.model.Detol;
 import com.product.service.DetolService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 public class DetolController {
 	@Autowired
 	DetolService f;
+	@Tag(name="getAllOrderDetails",description="getAll")
 	@GetMapping(value="/fetch")
 	public List<Detol> getAllValues()
 	{
