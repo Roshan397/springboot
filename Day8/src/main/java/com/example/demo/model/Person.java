@@ -22,7 +22,7 @@ public class Person {
 	private String password;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="address_id")
-	private List<Address> address;
+	private Address address;
 	public Long getId() {
 		return id;
 	}
@@ -47,12 +47,19 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Address> getAddress() {
+//	public List<Address> getAddress() {
+//		return address;
+//	}
+//	public void setAddress(List<Address> address) {
+//		this.address = address;
+//	}
+	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(List<Address> address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
 	
 	
 }
